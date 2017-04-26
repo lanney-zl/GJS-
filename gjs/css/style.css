@@ -1,0 +1,284 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
+body{
+	background: #000;
+}
+body,html{
+	width: 100%;
+	height: 100%;
+	font-size: 62.5%;
+	color: #cacaca;
+}
+/*头部的样式*/
+header{
+	width: 100%;
+	height: 3.6rem;
+	background: #333335;
+	position: relative;
+}
+header a.menu{
+	display: inline-block;
+	padding: 0.2rem;
+	position: absolute;
+	left: 1rem;
+	top: 50%;
+	transform: translateY(-50%);
+}
+header a.menu img{
+	width: 50%;
+	height: 50%;
+}
+header .h-nav{
+	width: 40%;
+	height: 60%;
+	border: 0.2rem #5d5d5d solid;
+	border-radius: 0.8rem;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	display: flex;
+}
+header .h-nav a{
+	height: 100%;
+	flex: 1;
+	color: #a09a9e;
+	font-size: 1rem;
+	text-align: center;
+	line-height: 2rem;
+}
+header .h-nav a.active{
+	color: #fff;
+	background: #3d3c41;
+}
+header span{
+	display: inline-block;
+	text-align: center;
+	position: absolute;
+	right: 3.5rem;
+	top: 50%;
+	transform: translateY(-50%);
+}
+header span img{
+	width: 50%;
+	height: 50%;
+}
+header span.s2{
+	right: 0.5rem;
+}
+/*头部的样式*/
+
+/*点击头部地图区域显示的部分*/
+.address{
+	width: 100%;
+	height: 2.3rem;
+	background: #2a2a2c;
+	display: flex;
+	line-height: 2.3rem;
+	font-size: 1rem;
+	padding: 0 0.5rem;
+	box-sizing: border-box;
+	border-top: 1px solid #343436;
+	border-bottom: 1px solid #2a2a2c;
+}
+.address span.s1{
+	flex: 1;
+	padding: 0 1rem 0 0.8rem;
+}
+.address span.s1 span{
+	display: inline-block;
+	height: 2.3rem;
+	line-height: 2.3rem;
+	vertical-align: middle;
+}
+.address span img{
+	width: 1.6rem;
+	height: 1.8rem;
+	vertical-align: middle;
+}
+.address span.s2{
+	flex: 3;
+}
+.address span.s2 span{
+	border-left: 0.3rem solid #1d1d1f;
+	padding: 0 0.9rem;	
+}
+.address span.s3{
+	flex: 1;
+	text-align: center;
+}
+.address span.s3 .hide{
+	margin-left: 1rem;
+}
+/*点击头部地图区域显示的部分*/
+
+/*内容区域的样式*/
+.title{
+	width: 100%;
+	padding: 0 0.2rem;
+	box-sizing: border-box;
+	background: #1e1e1e;
+	height: 2.4rem;
+	display: flex;
+	color: #555553;
+	border-bottom: 1px solid #2a2a2c;
+}
+.title span:nth-child(1){
+	flex: 1.5;
+}
+.title span{
+	flex: 1;
+	text-align: center;
+	line-height: 2.4rem;
+}
+.title span:nth-child(4){
+	background: url(../img/jt.png) no-repeat right center;
+}
+.wine{
+	width: 100%;
+	height: 4.5rem;
+	border-bottom: 1px solid #2a2a2c;
+	display: flex;
+	align-items: center;
+}
+.wine div{
+	flex: 1;
+	text-align: center;
+}
+.wine .box1{
+	flex: 1.5;
+	color: #cacaca;
+}
+.wine .box1 .p2{
+	color: #73746f;
+}
+.green{
+	color: #4da736;
+}
+.red{
+	color: #d01915;
+}
+/*内容区域的样式*/
+/*底部导航区域的样式*/
+.f-bar{
+	width: 100%;
+	height: 4.9rem;
+	background: #202020;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+}
+footer a{
+	flex: 1;
+	color: #b5b5b5;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+.current{
+	color: #2a61a2;
+}
+/*底部导航区域的样式*/
+/*点击编辑显示出来的区域的样式*/
+.show-map{
+	position: absolute;
+	border: 1px solid #7d7d7d;
+	width: 90%;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	border-radius: 0.2rem;
+	padding: 0.8rem;
+	box-sizing: border-box;
+	background: #232325;
+	z-index: 3;
+}
+.show-map img.map{
+	width: 100%;
+	height: 60%;
+}
+.show-map p{
+	line-height: 2rem;
+}
+.show-map .choose{
+	width: 100%;
+	height: 5.9rem;
+	border: 1px solid #7d7d7d;
+	border-radius: 0.4rem;
+	display: flex;
+	flex-direction: column;
+}
+.show-map .choose div{
+	flex: 1;
+}
+.top{
+	border-bottom: 1px solid #7d7d7d;
+	display: flex;
+	padding: 0 1rem;
+	align-items: center;
+}
+.show-map img{
+	width: 1.1rem;
+	height: 1.5rem;
+}
+.show-map span{
+	flex: 1;
+	text-align: right;
+}
+.bottom{
+	border-top: 1px solid #7d7d7d;
+	display: flex;
+	padding: 0 1rem;
+	align-items: center;
+}
+.bottom span{
+	text-align: center;
+}
+.confirm{
+	width: 80%;
+	height: 3rem;
+	background: #00a0ea;
+	line-height: 3rem;
+	text-align: center;
+	font-size: 1.4rem;
+	color: #fff;
+	margin-top: 1rem;
+	margin-left: 10%;
+	border-radius: 0.4rem;
+}
+.del{
+	width: 2.5rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	font-size: 2rem;
+	text-align: center;
+	position: absolute;
+	top: -1.6rem;
+	right: -0.1rem;
+	border: 1px solid #7d7d7d;
+	border-radius: 0.2rem;
+	border-bottom: 0;
+	/*z-index: 10;*/
+	background: #232325;
+}
+.body{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background: #000;
+	opacity: 0.5;
+	z-index: 2;
+}
+/*点击编辑显示出来的区域的样式*/

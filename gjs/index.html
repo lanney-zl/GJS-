@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link type="text/css" href="css/style.css" rel="stylesheet"/>
+		<script type="text/javascript" src="js/jquery-1.10.1.js" ></script>
+		<title></title>
+	</head>
+	<body>
+		<!--头部-->
+		<header>
+			<a href="" class="menu">
+				<img src="img/menu.png"/>
+			</a>
+			<div class="h-nav">
+				<a href="" class="active">现货</a><a href="">保税</a>
+			</div>
+			<span class="s1"><img src="img/map.png"/></span>
+			<span class="s2"><img src="img/search.png"/></span>
+		</header>
+		<!--头部-->
+		<!--点击头部地址显示区域-->
+		<div class="address">
+			<span class="s1">
+				<img src="img/map.png"/> <span>交割点</span>
+			</span>
+			<span class="s2">
+				<span>广东省 &nbsp;深圳市 &nbsp;罗湖区 &nbsp;莲塘街道</span>
+			</span>
+			<span class="s3">
+				<img src="img/edit.png" class="edit"/>
+				<img src="img/hide.png" class="hide"/>
+			</span>
+		</div>
+		<!--点击头部地址显示区域-->
+		<!--内容区域-->
+		<div class="content">
+			<div class="title">
+				<span>名称</span><span>最新</span><span>涨幅</span><span>涨跌</span>
+			</div>
+			<div class="wine">
+				<div class="box1">
+					<p>西班牙阿曼达特选红葡萄酒</p>
+					<p class="p2">84002</p>
+				</div>
+				<div>24.14</div>
+				<div>-0.25%</div>
+				<div>-0.06</div>
+			</div>
+			<div class="wine">
+				<div class="box1">
+					<p>西班牙卡帕斯特选红葡萄酒</p>
+					<p class="p2">84004</p>
+				</div>
+				<div>24.70</div>
+				<div>2.07%</div>
+				<div>0.50</div>
+			</div>
+			<div class="wine">
+				<div class="box1">
+					<p>西班牙安玛莉半甜桃红起泡酒</p>
+					<p class="p2">84013</p>
+				</div>
+				<div>27.47</div>
+				<div>0.99%</div>
+				<div>0.27</div>
+			</div>
+			<div class="wine">
+				<div class="box1">
+					<p>法国普雷斯蒂红葡萄酒</p>
+					<p class="p2">32056</p>
+				</div>
+				<div>27.67</div>
+				<div>1.73%</div>
+				<div>0.47</div>
+			</div>
+			<div class="wine">
+				<div class="box1">
+					<p>法国维勒红葡萄酒</p>
+					<p class="p2">32057</p>
+				</div>
+				<div>28.55</div>
+				<div>1.24%</div>
+				<div>0.35</div>
+			</div>
+			<div class="wine">
+				<div class="box1">
+					<p>智利瑞猴精选卡门尼雅红葡萄酒</p>
+					<p class="p2">78010</p>
+				</div>
+				<div>29.65</div>
+				<div>-2.15%</div>
+				<div>-0.65</div>
+			</div>
+			<div class="wine">
+				<div class="box1">
+					<p>法国贝丽丝珍藏红葡萄酒</p>
+					<p class="p2">32023</p>
+				</div>
+				<div>31.02</div>
+				<div>-0.89%</div>
+				<div>-0.28</div>
+			</div>
+		</div>
+		<!--内容区域-->
+		<!--底部导航区域-->
+		<footer class="f-bar">
+			<a href="javascript:void(0)">
+				<span>首页</span>
+				<span>Home</span>
+			</a>
+			<a href="javascript:void(0)" class="current">
+				<span>行情</span>
+				<span>Markets</span>
+			</a>
+			<a href="javascript:void(0)">
+				<span>自选</span>
+				<span>Portfolio</span>
+			</a>
+			<a href="javascript:void(0)">
+				<span>公告</span>
+				<span>Notice</span>
+			</a>
+			<a href="javascript:void(0)">
+				<span>交易</span>
+				<span>Trade</span>
+			</a>
+		</footer>
+		<!--底部导航区域-->
+		<!--点击编辑显示出来的区域-->
+			<div class="show-map">
+				<div class="del">×</div>
+				<img src="img/show-map.png" class="map"/>
+				<p>交割点:根据你选择的区域，地图会显示附近的交割点，供你就近交割。</p>
+				<div class="choose">
+					<div class="top">
+						<img src="img/address1.png"/>
+						<span>省</span><span>市</span><span>区</span>
+					</div>
+					<div class="bottom">
+						<img src="img/address2.png" />
+						<span>街道</span>
+					</div>
+				</div>
+				<div class="confirm">确认</div>
+			</div>
+			<div class="body"></div>
+		<!--点击编辑显示出来的区域-->
+		
+		<script>
+			$(".address").hide();
+			$(".show-map").hide();
+			$(".body").hide();
+			$("header .s1").click(function(){
+				$(".address").show();
+			})
+			$(".address .edit").click(function(){
+				$(".show-map").show();
+				$(".body").show();
+			})
+			$(".address .hide").click(function(){
+				$(".address").hide();
+			})
+			$(".wine").addClass("red");
+			$(".content div").filter(":contains('-')").addClass("green");
+			$(".content div").filter(":contains('-')").prev(".wine div").addClass("green");
+			$("footer a").click(function(){
+				$("footer a").removeClass("current");
+				$(this).addClass("current");
+			})
+			$(".del").click(function(){
+				$(".show-map").hide();
+				$(".body").hide();
+			})
+		</script>
+	</body>
+</html>
