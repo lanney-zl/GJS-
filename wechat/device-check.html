@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0;" name="viewport" />
+		<meta content="telephone=no" name="format-detection"/>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+		<script type="text/javascript" src="js/zepto.min.js"></script>
+		<script type="text/javascript" src="js/pinchzoom.min.js" ></script>
+		<title>设备检查</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			a{
+				text-decoration: none;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+				font-size: 62.5%;
+			}
+			body{
+				background: #ececec;
+			}
+			.download{
+				width: 100%;
+				height: 5.3rem;
+				box-sizing: border-box;
+				display: flex;
+				align-items:center;
+				background: #fcfcfc;
+				position: fixed;
+				top: 0;
+				left: 0;
+			}
+			.download div{
+				flex: 1;
+			}
+			.download .left{
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+			}
+			.download .left img{
+				width: 3.8rem;
+				height: 3.8rem;
+				margin: 0.75rem 0.4rem 0.75rem 2.9rem;
+				border: 0;
+				border-radius: 0.4rem;
+				display: inline-block;
+				box-sizing: border-box;
+				background: #f6372d;
+			}
+			.download .left span{
+				font-size: 1.4rem;
+				font-weight: bold;
+				display: inline-block;
+				width: 10.8rem;
+			}
+			.download .right{
+				display: flex;
+				justify-content: flex-end;
+				align-items: center;
+			}
+			.download .right .del{
+				font-size: 2.4rem;
+			}
+			.download .right a{
+				display: inline-block;
+				width: 8rem;
+				height: 3.7rem;
+				line-height: 3.7rem;
+				background: #f6372d;
+				border-radius: 0.4rem;
+				text-align: center;
+				color: #fff;
+				font-size: 1.5rem;
+			}
+			.download-button{
+				display: block;
+				width: 25.92rem;
+				height: 2.83rem;
+				background-color: #00a3f0;
+				margin: 0 auto;
+				color: #fff;
+				text-align: center;
+				line-height: 2.83rem;
+				font-size: 1.12rem;
+			}
+			.wxtip{background: rgba(0,0,0,0.8); text-align: center; position: fixed; left:0; top: 0; width: 100%; height: 100%; z-index: 998; display: none;}
+			.wxtip-icon{width: 52px; height: 67px; background: url(weixin-tip.png) no-repeat; display: block; position: absolute; right: 20px; top: 20px;}
+			.wxtip-txt{margin-top: 107px; color: #fff; font-size: 16px; line-height: 1.5;}
+			.download .right span{
+				font-size: 1.5rem;
+				display: inline-block;
+				margin: 0 2.9rem 0 1.2rem;
+			}
+			.banner{
+				width: 100%;
+				height: 15.4rem;
+				margin-top: 5.3rem;
+			}
+			.banner img{
+				width: 100%;
+				height: 15.4rem;
+			}
+			.content{
+				margin-top: 1.2rem;
+			}
+			.content .msg{
+				font-size: 1.5rem;
+				color: #9c9c9c;
+				background: #fff;
+				box-sizing: border-box;
+			}
+			.content .msg span{
+				display: block;
+				line-height: 2.4rem;
+			}
+			.content .msg h3{
+				font-size: 1.8rem;
+				color: #000;
+				padding: 1.2rem 1.4rem 0.4rem 1.4rem;
+				box-sizing: border-box;
+			}
+			.content .msg .top{
+				display: flex;
+				border-bottom: 1px solid #e4e4e4;
+				margin-bottom: 0.8rem;
+				padding: 0.3rem 1.4rem 0.6rem 1.4rem;
+				box-sizing: border-box;
+			}
+			.content .msg .top .left span{
+				display: inline-block;
+				margin-left: 2rem;
+			}
+			.content .msg .top .center span:nth-child(2){
+				color: #00b71a;
+			}
+			.content .msg .top .right{
+				flex: 1;
+				text-align: right;
+			}
+			.content .msg .top .right img{
+				width: 8rem;
+				height: 8rem;
+				border: 1px solid #d0d0d0;
+			}
+			.content .msg .bottom {
+				display: flex;
+				padding: 0 1.4rem 0.6rem 1.4rem;
+				box-sizing: border-box;
+			}
+			.content .msg .bottom .left{
+				width: 6.4rem;
+				margin-right: 1.6rem;
+			}
+			.content .msg .bottom .right{
+				flex: 1;
+			}
+			.address{
+				background: #fff;
+				margin-top: 1.4rem;
+				padding: 0 1.4rem;
+				box-sizing: border-box;
+			}
+			.address h3{
+				font-size: 1.8rem;
+				line-height: 4rem;
+			}
+			.address p{
+				font-size: 1.6rem;
+				color: #959595;	
+			}
+			.address #dituContent{
+				width: 100%;
+				height: 15rem;
+				margin: 1rem 0;
+			}
+			.address .trans{
+				line-height: 3rem;
+				padding-bottom: 2rem;
+				background: url(img/more.png) no-repeat right 0.6rem;
+				background-size: 1rem 1.5rem;
+			}
+			.contact{
+				background: #fff;
+				margin-top: 1.4rem;
+				padding: 0 1.4rem;
+				box-sizing: border-box;
+				border-top: 1px solid #d0d0d0;
+				border-bottom: 1px solid #d0d0d0;
+			}
+			.contact h3{
+				font-size: 1.8rem;
+				line-height: 4rem;
+			}
+			.contact .ewm{
+				display: flex;
+				width: 90%;
+				margin: 0 auto;
+				align-items: center;
+				padding: 1rem 0;
+			}
+			.contact .ewm img{
+				width: 40%;
+				height: 40%;
+			}
+			.contact .ewm p{
+				flex: 1;
+				font-size: 1.5rem;
+				line-height: 3rem;
+				text-align: center;
+			}
+			.contact .ewm p span{
+				color: #df5650;
+				display: inline-block;
+				margin-top: 0.5rem;
+			}
+			.talk{
+				width: 100%;
+				padding: 1rem 0.8rem;
+				text-align: center;
+				box-sizing: border-box;
+				color: #fff;
+				font-size: 1.5rem;
+				background: #fff;
+			}
+			.talk span{
+				display: inline-block;
+				height: 4rem;
+				line-height: 4rem;
+				text-align: center;
+				font-weight: bold;
+				border-radius: 0.4rem;
+			}
+			.talk span:nth-child(1){
+				width: 30%;
+				background: url(img/chat.png) no-repeat 1.2rem center #22b1c1;
+				text-indent: 3rem;
+				background-size: 2rem 1.4rem;
+				vertical-align: middle;
+			}
+			.talk span:nth-child(2){
+				width: 58%;
+				background: url(img/tel.png) no-repeat 2.5rem center #fca700;
+				margin-left: 4%;
+				text-indent: 2rem;
+				background-size: 2rem 1.4rem;
+				display: inline-block;
+				position: relative;
+				vertical-align: middle;
+			}
+			.talk a{
+				color: #fff;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="download">
+			<div class="left">
+				<img src="img/logo.png" alt="消检通logo"/>
+				<span>下载消检通app<br/>消防维保及时知</span>
+			</div>
+			<div class="right">
+				<a class="switch" id="downloadButton">立即打开</a><span class="del">×</span>
+				<div class="wxtip" id="JweixinTip">
+					<span class="wxtip-icon"></span>
+					<p class="wxtip-txt">点击右上角<br>选择在浏览器中打开</p>
+				</div>
+			</div>
+		</div>
+		<div class="banner">
+			<img src="img/banner.png" alt="banner图"/>
+		</div>
+		<div class="content">
+			<div class="msg">
+				<h3>巡检信息</h3>
+				<div class="top">
+					<div class="left">
+						<p>设备名称<span>警灯</span></p>
+						<p>检查情况<span>正常</span></p>
+						<p>检查时间<span>2017-4-5 15：30</span></p>
+						<p>设备编码<span>EEEW-JZQSG-000001</span></p>
+					</div>
+					<div class="right">
+						<img src="img/device.png" alt="设备图片"/>
+					</div>
+				</div>	
+				<div class="bottom">
+					<div class="left">
+						<span>所属项目</span>
+						<span>所属单位</span>
+						<span>所属建筑</span>
+						<span>具体位置</span>
+						<span>维保单位</span>
+						<span>维保电话</span>
+					</div>
+					<div class="right">
+						<span>格兰云天大酒店</span>
+						<span>格兰云天大酒店</span>
+						<span>格兰云天大酒店</span>
+						<span>13栋西北角</span>
+						<span>深圳市xx维保有限责任公司</span>
+						<span class="tel">1234567890</span>
+					</div>
+				</div>
+			</div>
+			<div class="address">
+				<h3>单位地址</h3>
+				<p class="map">地址:<span>南山区桃源街丽山路10号桑泰大厦1905</span></p>
+				<div id="dituContent"></div>
+				<p class="trans">公交、地铁、学校</p>
+			</div>
+			<div class="contact">
+				<h3>联系我们</h3>
+				<div class="ewm">
+					<img src="img/ewm.png" alt="巡检扫描的二维码" />
+					<p>长按识别图中二维码<br/>下载APP查看更多巡检详情<br/>
+						<span>消检通公众号</span>
+					</p>
+				</div>
+			</div>
+			<div class="talk">
+				<span class="qq">在线咨询</span>
+				<span><a href="tel:400-902-1239">400-902-1239</a></span>
+			</div>
+		</div>
+		<script>
+			onload=function(){
+			    //创建和初始化地图函数：
+			    function initMap(){
+			        createMap();//创建地图
+			        setMapEvent();//设置地图事件
+			        addMarker();//向地图中添加marker
+			    }  
+			    //创建地图函数：
+			    function createMap(){
+			        var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+			        var point = new BMap.Point(113.971424,22.594496);//定义一个中心点坐标
+			        map.centerAndZoom(point,17);//设定地图的中心点和坐标并将地图显示在地图容器中
+			        window.map = map;//将map变量存储在全局
+			    } 
+			    //地图事件设置函数：
+			    function setMapEvent(){
+			        map.enableDragging(true);//启用地图拖拽事件，默认启用(可不写)
+			        map.enableScrollWheelZoom(true);//启用地图滚轮放大缩小
+			        map.enableDoubleClickZoom(true);//启用鼠标双击放大，默认启用(可不写)
+			        map.enableKeyboard(true);//启用键盘上下左右键移动地图
+			    }
+			    //标注点数组
+			    var markerArr = [{title:"",content:"我的备注",point:"113.971433|22.594679",isOpen:0,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
+					 ];
+			    //创建marker
+			    function addMarker(){
+			        for(var i=0;i<markerArr.length;i++){
+			            var json = markerArr[i];
+			            var p0 = json.point.split("|")[0];
+			            var p1 = json.point.split("|")[1];
+			            var point = new BMap.Point(p0,p1);
+						var iconImg = createIcon(json.icon);
+			            var marker = new BMap.Marker(point,{icon:iconImg});
+						var iw = createInfoWindow(i);
+						var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
+						marker.setLabel(label);
+			            map.addOverlay(marker);
+			            label.setStyle({
+			                        borderColor:"#808080",
+			                        color:"#333",
+			                        cursor:"pointer"
+			            });
+						
+						(function(){
+							var index = i;
+							var _iw = createInfoWindow(i);
+							var _marker = marker;
+							_marker.addEventListener("click",function(){
+							    this.openInfoWindow(_iw);
+						    });
+						    _iw.addEventListener("open",function(){
+							    _marker.getLabel().hide();
+						    })
+						    _iw.addEventListener("close",function(){
+							    _marker.getLabel().show();
+						    })
+							label.addEventListener("click",function(){
+							    _marker.openInfoWindow(_iw);
+						    })
+							if(!!json.isOpen){
+								label.hide();
+								_marker.openInfoWindow(_iw);
+							}
+						})()
+			        }
+			    }
+			    //创建InfoWindow
+			    function createInfoWindow(i){
+			        var json = markerArr[i];
+			        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+			        return iw;
+			    }
+			    //创建一个Icon
+			    function createIcon(json){
+			        var icon = new BMap.Icon("http://map.baidu.com/image/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+			        return icon;
+			    }
+			    
+			    initMap();//创建和初始化地图
+			    
+			    function weixinTip(ele) {
+					var ua = navigator.userAgent;
+					var isWeixin = !!/MicroMessenger/i.test(ua);
+					ele.addEventListener("touchstart", function(e) {
+						if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+							//console.log("这是苹果手机");
+							//downloadButton.href = "http://app.xiaojiantong.com/xjtapp.apk";
+							window.location.href = "http://app.xiaojiantong.com/xjtapp.apk";
+						} else if(/(Android)/i.test(navigator.userAgent)) { //判断Android
+							//console.log("这是安卓手机");
+							window.location.href = "http://app.xiaojiantong.com/xjtapp.apk";
+							//downloadButton.href = "http://app.xiaojiantong.com/xjtapp.apk";
+						}
+					})
+					if(isWeixin) {
+						//ele.onclick=function(e){
+						ele.addEventListener("touchstart", function(e) {
+							window.event ? window.event.returnValue = false : e.preventDefault();
+							document.getElementById('JweixinTip').style.display = 'block';
+						})
+						document.getElementById('JweixinTip').addEventListener("touchstart", function(e) {
+							this.style.display = 'none';
+						})
+					}
+				
+				}
+			weixinTip(downloadButton);
+			
+			//点击下载按钮判断是否是微信页面
+			downloadButton.addEventListener("touchstart", function(e) {
+				e.preventDefault();
+			
+			})
+			    
+			//  点击隐藏头部下载部分
+				$(".del").click(function(){
+					$(".download").hide();
+					$(".banner").css("margin-top",0);
+				})
+			//  点击隐藏头部下载部分
+			    
+			//  点击下载跳转
+//				$(".switch").click(function(){
+//					var u = navigator.userAgent, 
+//					isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1,
+//					isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+//					urls = {
+//						'android':'http://app.xiaojiantong.com/xjtapp.apk',
+//						'ios':'https://itunes.apple.com/cn/app/xiao-jian-tong/id1163193447?mt=8'
+//					};
+//					//三元运算
+//					// window.location.href = isAndroid? urls.android : isiOS? urls.ios : urls.other;
+//					//简化
+//					if(isAndroid){
+//						window.location.href=urls.android;
+//						
+//					}else{
+//						window.location.href=urls.ios;
+//					}
+//				})
+			//  点击下载跳转
+			//跳转到qq交谈页面
+				$(".qq").click(function(){
+					window.open("http://wpa.qq.com/msgrd?v=3&amp;uin=2144514881&amp;site=qq&amp;menu=yes");
+				})
+			//跳转到qq交谈页面
+					
+			//点击下载按钮判断是否是微信页面
+//			downloadButton.addEventListener("touchstart", function(e) {
+//				e.preventDefault();
+//			
+//			})
+			
+			$("#dituContent").each(function () {
+                new RTP.PinchZoom($(this), {});
+            });
+			
+			}
+		</script>
+	</body>
+</html>
